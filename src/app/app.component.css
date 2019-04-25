@@ -1,0 +1,22 @@
+.bg {
+  /* Full height */
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  height: 100vh;
+  width: 100vw;
+
+}
+
+@media only screen and (max-width: 600px) {
+  .bg {
+    /* display: none; */
+    object-fit: cover;
+  }
+}
+
+.bottom {
+  margin-top: 80px;
+}

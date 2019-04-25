@@ -1,0 +1,15 @@
+.buttons {
+  margin-top: 50vh;
+}
+@media only screen and (max-width: 600px) {
+  .buttons {
+    margin-top: 10vh;
+  }
+}
+img { 
+  border:1px solid #021a40;
+  margin: 1%;
+}
+.container {
+  margin-top: 20px;
+}

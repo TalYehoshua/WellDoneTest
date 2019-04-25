@@ -1,0 +1,36 @@
+<div class="container">
+  <div class=" card card-body">
+    <div>
+      <label><b>View details by: </b> </label>
+      <br>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
+          (click)="option('maps')">
+        <label class="form-check-label" for="inlineRadio1">Text</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"
+          (click)="option('manually')" checked>
+        <label class="form-check-label" for="inlineRadio2">google Maps</label>
+      </div>
+    </div>
+    <hr>
+    <p class="mainTextPost" *ngIf="!maps">
+      <strong>Name: "{{ name }}"</strong>
+      <br>
+      Category : {{ category }}
+      <br>
+      Address: {{ address }}
+      <br>
+      Coordinate Longitude: {{ coordinatesLng }}
+      <br>
+      Coordinate Latitude:: {{ coordinatesLat }}
+      <br>
+    </p>
+
+    <agm-map class="map" *ngIf="maps" [latitude]="coordinatesLat" [longitude]="coordinatesLng">
+
+    </agm-map>
+    <a routerLink="/location" class="back btn btn-danger mb-3">Back</a>
+  </div>
+</div>

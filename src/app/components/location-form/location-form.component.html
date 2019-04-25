@@ -1,0 +1,93 @@
+<div class="container card card-body">
+  <form #cForm="ngForm" (ngSubmit)="submit(cForm)">
+    <div class="form-group">
+      <label>Name</label>
+      <input [(ngModel)]="selectedLocation.name" #locationName="ngModel"
+        [ngClass]="{'is-invalid': locationName.errors && locationName.touched}" type="text" class="form-control"
+        name="name" required minlength="2" maxlength="20" #name />
+      <div class="invalid-feedback" [hidden]="!locationName.errors?.required">
+        Please enter a name.
+      </div>
+      <div class="invalid-feedback" [hidden]="!locationName.errors?.minlength">
+        Must be at least 2 characters.
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Address</label>
+      <input [(ngModel)]="selectedLocation.address" #locationAddress="ngModel"
+        [ngClass]="{'is-invalid': locationAddress.errors && locationAddress.touched}" type="text" class="form-control"
+        name="address" required minlength="1" maxlength="100" #address />
+      <div [hidden]="!locationAddress.errors?.required" class="invalid-feedback">
+        Please enter a address.
+      </div>
+      <div [hidden]="!locationAddress.errors?.minlength" class="invalid-feedback">
+        Must be at least 2 characters.
+      </div>
+    </div>
+    <div>
+      <div class="form-group">
+        <label>Coordinate Latitude </label>
+        <input [(ngModel)]="selectedLocation.coordinatesLat" #Lat="ngModel"
+          [ngClass]="{'is-invalid': Lat.errors && Lat.touched}" type="number" class="form-control" name="coordinatesLat"
+          required maxlength="4" #coordinatesLat pattern="-?([0-9]|[0-7][0-9]|8[0-5])(\.([0-9]*))*" />
+        <div *ngIf="Lat.errors && (Lat.errors || Lat.touched)" class="invalid-feedback">
+          <div [hidden]="!Lat.errors.pattern">
+            Number should be between -85 and 85
+          </div>
+        </div>
+        <div [hidden]="!Lat.errors?.required" class="invalid-feedback">
+          Please enter a number between -85 and 85
+        </div>
+      </div>
+      <div class="form-group ">
+        <label>Coordinate Longitude</label>
+        <input [(ngModel)]="selectedLocation.coordinatesLng" #Lng="ngModel"
+          [ngClass]="{'is-invalid': Lng.errors && Lng.touched}" type="number" class="form-control" name="coordinatesLng"
+          required #coordinatesLng pattern="-?([0-9]|[0-9][0-9]|1[0-7][0-9]|180)(\.([0-9]*))*" />
+        <div class="invalid-feedback" *ngIf="Lng.errors && (Lng.errors || Lng.touched)">
+          <div [hidden]="!Lng.errors.pattern">
+            Number should be between -180 and 180
+          </div>
+        </div>
+        <div [hidden]="!Lng.errors?.required" class="invalid-feedback">
+          Please enter a number between -180 and 180
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Category</label>
+      <select class="form-control" id="category" name="category" [(ngModel)]="selectedLocation.category"
+        #idCategory="ngModel" name="category" #category required>
+        <option *ngFor="let category of categories" [value]="category.name">
+          {{category.name}}
+        </option>
+      </select>
+      <div [hidden]="!idCategory.errors?.required" class="invalid-feedback">
+        Please enter a Category.
+      </div>
+    </div>
+
+    <button *ngIf="!editState" (click)="
+      addLocation(
+        name.value,
+        address.value,
+        coordinatesLat.value,
+        coordinatesLng.value,
+        category.value
+      )
+    " [disabled]="!cForm.form.valid" class="btn btn-warning btn-block">
+      Post
+    </button>
+    <button *ngIf="editState" (click)="
+      updateLocation(
+        name.value,
+        address.value,
+        coordinatesLat.value,
+        coordinatesLng.value,
+        category.value
+      )
+    " [disabled]="!cForm.form.valid" class="btn btn-danger btn-block">
+      Update
+    </button>
+  </form>
+</div>

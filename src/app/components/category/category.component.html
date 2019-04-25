@@ -1,0 +1,30 @@
+<div class=" card card-body">
+  <form #cForm="ngForm" (ngSubmit)="submit(cForm)">
+    <div class="form-group">
+      <label>Category Name</label>
+      <input [(ngModel)]="selectedCategory.name" #idCategory="ngModel" [ngClass]="{
+          'is-invalid': idCategory.errors && idCategory.touched
+        }" type="text" class="form-control" name="category" required minlength="2" maxlength="20" #name />
+      <div [hidden]="!idCategory.errors?.required" class="invalid-feedback">
+        Please enter a Category name.
+      </div>
+      <div [hidden]="!idCategory.errors?.minlength" class="invalid-feedback">
+        Must be at least 2 characters.
+      </div>
+    </div>
+    <button *ngIf="!editState" (click)="
+        addCategory(
+          name.value
+        )
+      " [disabled]="!cForm.form.valid" class="btn btn-warning btn-block">
+      Post
+    </button>
+    <button *ngIf="editState" (click)="
+        updateCategory(
+          name.value
+        )
+      " [disabled]="!cForm.form.valid" class="btn btn-danger btn-block">
+      Update
+    </button>
+  </form>
+</div>
